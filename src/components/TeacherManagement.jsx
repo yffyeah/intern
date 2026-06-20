@@ -238,7 +238,7 @@ const TeacherManagement = () => {
                           {teacher.is_admin ? '取消管理员' : '设为管理员'}
                         </button>
                       )}
-                      {isAdmin && (
+                      {isAdmin && teacher.id !== user.id && (
                         <button
                           onClick={() => handleDelete(teacher.id)}
                           className="px-3 py-1 text-sm text-red-600 hover:bg-red-50 rounded-lg transition-all"

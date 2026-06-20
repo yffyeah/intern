@@ -332,8 +332,15 @@ router.delete('/:id', authenticateToken, async (req, res) => {
     return res.status(403).json({ error: '无权删除教师' });
   }
   
+  const teacherId = parseInt(req.params.id);
+  
+  // 不能删除自己
+  if (teacherId === req.user.id) {
+    return res.status(400).json({ error: '不能删除自己' });
+  }
+  
   // 先获取教师信息
-  db.get('SELECT * FROM teachers WHERE id = ?', [req.params.id], async (err, teacher) => {
+  db.get('SELECT * FROM teachers WHERE id = ?', [teacherId], async (err, teacher) => {
     if (err) {
       return res.status(500).json({ error: '数据库错误' });
     }
@@ -341,7 +348,7 @@ router.delete('/:id', authenticateToken, async (req, res) => {
       return res.status(404).json({ error: '教师不存在' });
     }
     
-    db.run('DELETE FROM teachers WHERE id = ?', [req.params.id], async function(err) {
+    db.run('DELETE FROM teachers WHERE id = ?', [teacherId], async function(err) {
       if (err) {
         return res.status(500).json({ error: '数据库错误' });
       }
@@ -351,7 +358,7 @@ router.delete('/:id', authenticateToken, async (req, res) => {
         await logAudit(
           '删除',
           '教师',
-          req.params.id,
+          teacherId,
           `${teacher.name} (${teacher.teacher_id})`,
           `工号: ${teacher.teacher_id}, 部门: ${teacher.department || '-'}`,
           req.user
