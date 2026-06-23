@@ -453,6 +453,7 @@ const InternshipReview = () => {
                 <th className="sticky left-48 z-20 bg-gray-50 px-4 py-2 text-left text-sm font-medium text-gray-600 w-32">班级</th>
                 {/* 中间可滚动列 */}
                 <th className="px-4 py-2 text-left text-sm font-medium text-gray-600 min-w-[200px]">实习单位</th>
+                <th className="px-4 py-2 text-left text-sm font-medium text-gray-600 min-w-[100px]">实习岗位</th>
                 <th className="px-4 py-2 text-left text-sm font-medium text-gray-600 w-28">实习类型</th>
                 <th className="px-4 py-2 text-left text-sm font-medium text-gray-600 w-36">起止日期</th>
                 <th className="px-4 py-2 text-left text-sm font-medium text-gray-600 w-24">状态</th>
@@ -469,6 +470,7 @@ const InternshipReview = () => {
                   <td className="sticky left-48 z-10 bg-white px-4 py-2 text-sm text-gray-600 w-32">{internship.class || '-'}</td>
                   {/* 中间可滚动列 */}
                   <td className="px-4 py-2 text-sm text-gray-600 min-w-[200px]">{internship.company_name}</td>
+                  <td className="px-4 py-2 text-sm text-gray-600 min-w-[100px]">{internship.position || '-'}</td>
                   <td className="px-4 py-2 text-sm text-gray-600 w-28">{internship.internship_type || '-'}</td>
                   <td className={`px-4 py-2 text-sm w-36 ${!isDaysValid(internship.start_date, internship.end_date, internship.actual_days) ? 'bg-red-50 text-red-700 font-medium' : 'text-gray-600'}`}>
                     {internship.start_date} - {internship.end_date}
